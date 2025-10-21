@@ -1,171 +1,441 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Accredited Investor Certification — Mock (Reg D Rule 501)</title>
-  <style>
-    :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#60a5fa;--ok:#34d399}
-    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:linear-gradient(180deg,#020617 0%,#071033 100%); color:#e6eef8; padding:28px}
-    .container{max-width:980px;margin:0 auto}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7dd3fc);display:flex;align-items:center;justify-content:center;color:#021124;font-weight:700}
-    h1{font-size:20px;margin:0}
-    .sub{color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    .section-title{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
-    dl{display:grid;grid-template-columns:160px 1fr;row-gap:10px;column-gap:10px}
-    dt{color:var(--muted);font-size:13px}
-    dd{margin:0}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(96,165,250,0.12);color:var(--accent);font-weight:600;font-size:13px}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .attachments a{display:block;color:#cfe9ff;text-decoration:underline;margin-bottom:6px}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
-    .signature{border-top:1px dashed rgba(255,255,255,0.06);padding-top:10px;margin-top:10px}
-    .ok{color:var(--ok);font-weight:700}
-    footer{margin-top:18px;color:var(--muted);font-size:12px}
-    .meta{font-size:12px;color:var(--muted);margin-top:8px}
-    .stat{font-size:22px;font-weight:700}
-    .emph{color:var(--accent);font-weight:700}
-    .pill{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="logo">RD</div>
-      <div>
-        <h1>Accredited Investor Certification (Reg D — Rule 501) — Mock</h1>
-        <div class="sub">Snapshot of attestation, supporting evidence and signatures</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Accredited Investor Certification — Mock (Reg D Rule 501)</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #0b1220;
+        --muted: #94a3b8;
+        --accent: #60a5fa;
+        --ok: #34d399;
+      }
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+          Helvetica, Arial;
+        background: linear-gradient(180deg, #020617 0%, #071033 100%);
+        color: #e6eef8;
+        padding: 28px;
+      }
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), #7dd3fc);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #021124;
+        font-weight: 700;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 18px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+      }
+      .section-title {
+        font-size: 13px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+      dl {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        row-gap: 10px;
+        column-gap: 10px;
+      }
+      dt {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      dd {
+        margin: 0;
+      }
+      .badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(96, 165, 250, 0.12);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .attachments a {
+        display: block;
+        color: #cfe9ff;
+        text-decoration: underline;
+        margin-bottom: 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 13px;
+      }
+      .signature {
+        border-top: 1px dashed rgba(255, 255, 255, 0.06);
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .ok {
+        color: var(--ok);
+        font-weight: 700;
+      }
+      footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .stat {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .emph {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .pill {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 6px 10px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">RD</div>
+        <div>
+          <h1>Accredited Investor Certification (Reg D — Rule 501) — Mock</h1>
+          <div class="sub">
+            Snapshot of attestation, supporting evidence and signatures
+          </div>
+        </div>
+        <div style="margin-left: auto; text-align: right">
+          <div class="badge">Mock • v1.0</div>
+          <div class="meta">Generated: Oct 21, 2025</div>
+          <div class="meta">Tenant: Lighthouse Capital</div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <main class="card">
+          <div class="section">
+            <div class="section-title">Applicant</div>
+            <dl>
+              <dt>Type</dt>
+              <dd><span class="pill">Individual</span></dd>
+              <dt>Client ID</dt>
+              <dd>c-789abc-def</dd>
+              <dt>Name</dt>
+              <dd>Jordan A. Mercer</dd>
+              <dt>DOB</dt>
+              <dd>1980-04-18</dd>
+              <dt>Contact</dt>
+              <dd>jordan.mercer@example.com • +1 (555) 221-0098</dd>
+              <dt>Preferred Times</dt>
+              <dd>Tue/Thu 2-4 PM EST</dd>
+              <dt>Communication</dt>
+              <dd>Email preferred</dd>
+              <dt>Mailing</dt>
+              <dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
+              <dt>SSN (last4)</dt>
+              <dd>1234</dd>
+            </dl>
+          </div>
+
+          <hr
+            style="
+              margin: 16px 0;
+              border: none;
+              border-top: 1px solid rgba(255, 255, 255, 0.03);
+            "
+          />
+
+          <div class="section">
+            <div class="section-title">
+              Accreditation tests (Rule 501) — provided values
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Value</th>
+                  <th>Meets threshold?</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Net worth (ex primary residence)</td>
+                  <td>$6,500,000</td>
+                  <td class="ok">Yes</td>
+                  <td>Threshold: $1M</td>
+                </tr>
+                <tr>
+                  <td>Income (last 2 years)</td>
+                  <td>$260,000</td>
+                  <td class="ok">Yes</td>
+                  <td>Individual ≥ $200k</td>
+                </tr>
+                <tr>
+                  <td>Joint income with spouse</td>
+                  <td>$420,000</td>
+                  <td class="ok">Yes</td>
+                  <td>Joint ≥ $300k</td>
+                </tr>
+                <tr>
+                  <td>Investable assets</td>
+                  <td>$5,200,000</td>
+                  <td class="ok">High</td>
+                  <td>Strong liquidity</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top: 12px" class="chips">
+              <div class="pill">Primary: Net Worth Test</div>
+              <div class="pill">Status: Accredited</div>
+              <div class="pill">Verified: bank statements (mock)</div>
+              <div class="pill">Verified: CPA letter (mock)</div>
+            </div>
+          </div>
+
+          <hr
+            style="
+              margin: 16px 0;
+              border: none;
+              border-top: 1px solid rgba(255, 255, 255, 0.03);
+            "
+          />
+
+          <div class="section">
+            <div class="section-title">Attestations</div>
+            <ul>
+              <li>
+                Understands risks of private/alternative investments —
+                <strong>agreed</strong>
+              </li>
+              <li>
+                Understands illiquidity & lock-up periods —
+                <strong>agreed</strong>
+              </li>
+              <li>
+                Understands private investment structures —
+                <strong>agreed</strong>
+              </li>
+              <li>
+                Acknowledges lock-up periods of 1-5 years —
+                <strong>agreed</strong>
+              </li>
+              <li>
+                Consents to verification of financial status —
+                <strong>agreed</strong>
+              </li>
+            </ul>
+          </div>
+
+          <hr
+            style="
+              margin: 16px 0;
+              border: none;
+              border-top: 1px solid rgba(255, 255, 255, 0.03);
+            "
+          />
+
+          <div class="section">
+            <div class="section-title">Supporting documents</div>
+            <div class="attachments">
+              <a href="#">CPA_Letter_Jordan_Mercer.pdf</a>
+              <a href="#">Bank_Statements_Q1-Q4_2024.zip</a>
+              <a href="#">Investment_Portfolio_Summary.pdf</a>
+              <a href="#">Photo_ID_Jordan.jpg</a>
+            </div>
+          </div>
+
+          <div class="signature">
+            <div class="section-title">Signatures</div>
+            <div style="display: flex; gap: 18px; align-items: center">
+              <div>
+                <div style="font-weight: 700">Jordan A. Mercer</div>
+                <div class="meta">Signed: 2025-10-20</div>
+              </div>
+              <div
+                style="
+                  border-left: 1px solid rgba(255, 255, 255, 0.03);
+                  padding-left: 14px;
+                "
+              >
+                <div style="font-weight: 700">Alex R. Doyle</div>
+                <div class="meta">Advisor, Lighthouse Capital</div>
+                <div class="meta">Signed: 2025-10-20</div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <aside class="card">
+          <div class="section">
+            <div class="section-title">Form summary</div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <div class="meta">Applicant status</div>
+                <div class="stat emph">Accredited</div>
+              </div>
+              <div style="text-align: right">
+                <div class="meta">Compliance Score</div>
+                <div class="stat">95/100</div>
+              </div>
+            </div>
+
+            <div
+              style="
+                margin-top: 12px;
+                display: flex;
+                justify-content: space-between;
+              "
+            >
+              <div>
+                <div class="meta">Risk Level</div>
+                <div style="color: var(--ok)">Low</div>
+              </div>
+              <div style="text-align: right">
+                <div class="meta">Primary criterion</div>
+                <div class="stat">Net worth</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 12px" class="meta">
+              Notes: Applicant reports investable assets between
+              <strong>$5M–$10M</strong>. Strong compliance history. Shown values
+              are mocked for demonstration.
+            </div>
+          </div>
+
+          <hr
+            style="
+              margin: 14px 0;
+              border: none;
+              border-top: 1px solid rgba(255, 255, 255, 0.03);
+            "
+          />
+
+          <div class="section">
+            <div class="section-title">Metadata</div>
+            <dl>
+              <dt>Form ID</dt>
+              <dd>f4b7b9e2-8c13-4b1d-900a-2a6a9d0d9f7b</dd>
+              <dt>Tenant ID</dt>
+              <dd>tenant-lighthouse-001</dd>
+              <dt>Completed At</dt>
+              <dd>2025-10-20T14:23:00Z</dd>
+              <dt>Last Review</dt>
+              <dd>2025-10-20</dd>
+              <dt>Next Review</dt>
+              <dd>2026-10-20</dd>
+              <dt>Completed By</dt>
+              <dd>Alex R. Doyle (Advisor)</dd>
+              <dt>Firm</dt>
+              <dd>Lighthouse Capital Advisors</dd>
+              <dt>Framework</dt>
+              <dd>SEC Reg D Rule 501</dd>
+            </dl>
+          </div>
+
+          <hr
+            style="
+              margin: 14px 0;
+              border: none;
+              border-top: 1px solid rgba(255, 255, 255, 0.03);
+            "
+          />
+
+          <div class="section">
+            <div class="section-title">Accreditation Tests</div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Net Worth Test</td>
+                  <td class="ok">Pass</td>
+                </tr>
+                <tr>
+                  <td>Income Test</td>
+                  <td class="ok">Pass</td>
+                </tr>
+                <tr>
+                  <td>Joint Income Test</td>
+                  <td class="ok">Pass</td>
+                </tr>
+                <tr>
+                  <td>Entity Test</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Professional Test</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </aside>
       </div>
-      <div style="margin-left:auto;text-align:right">
-        <div class="badge">Mock • v1.0</div>
-        <div class="meta">Generated: Oct 21, 2025</div>
-      </div>
-    </header>
 
-    <div class="grid">
-      <main class="card">
-        <div class="section">
-          <div class="section-title">Applicant</div>
-          <dl>
-            <dt>Type</dt><dd><span class="pill">Individual</span></dd>
-            <dt>Name</dt><dd>Jordan A. Mercer</dd>
-            <dt>DOB</dt><dd>1980-04-18</dd>
-            <dt>Contact</dt><dd>jordan.mercer@example.com • +1 (555) 221-0098</dd>
-            <dt>Mailing</dt><dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
-            <dt>SSN (last4)</dt><dd>1234</dd>
-          </dl>
-        </div>
-
-        <hr style="margin:16px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-        <div class="section">
-          <div class="section-title">Accreditation tests (Rule 501) — provided values</div>
-          <table>
-            <thead><tr><th>Test</th><th>Value</th><th>Meets threshold?</th></tr></thead>
-            <tbody>
-              <tr><td>Net worth (ex primary residence)</td><td>$6,500,000</td><td class="ok">Yes</td></tr>
-              <tr><td>Income (last 2 years)</td><td>$260,000</td><td class="ok">Yes (individual ≥ $200k)</td></tr>
-              <tr><td>Joint income with spouse (last 2 years)</td><td>$420,000</td><td>—</td></tr>
-            </tbody>
-          </table>
-
-          <div style="margin-top:12px" class="chips">
-            <div class="pill">Verified: bank statements (mock)</div>
-            <div class="pill">Verified: CPA letter (mock)</div>
-          </div>
-        </div>
-
-        <hr style="margin:16px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-        <div class="section">
-          <div class="section-title">Attestations</div>
-          <ul>
-            <li>Understands risks of private/alternative investments — <strong>agreed</strong></li>
-            <li>Understands illiquidity & lock-up periods — <strong>agreed</strong></li>
-            <li>Consents to verification of financial status — <strong>agreed</strong></li>
-          </ul>
-        </div>
-
-        <hr style="margin:16px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-        <div class="section">
-          <div class="section-title">Supporting documents</div>
-          <div class="attachments">
-            <a href="#">CPA_Letter_Jordan_Mercer.pdf</a>
-            <a href="#">Bank_Statements_Q1-Q4_2024.zip</a>
-            <a href="#">Photo_ID_Jordan.jpg</a>
-          </div>
-        </div>
-
-        <div class="signature">
-          <div class="section-title">Signatures</div>
-          <div style="display:flex;gap:18px;align-items:center">
-            <div>
-              <div style="font-weight:700">Jordan A. Mercer</div>
-              <div class="meta">Signed: 2025-10-20</div>
-            </div>
-            <div style="border-left:1px solid rgba(255,255,255,0.03);padding-left:14px">
-              <div style="font-weight:700">Alex R. Doyle</div>
-              <div class="meta">Advisor, Lighthouse Capital</div>
-              <div class="meta">Signed: 2025-10-20</div>
-            </div>
-          </div>
-        </div>
-
-      </main>
-
-      <aside class="card">
-        <div class="section">
-          <div class="section-title">Form summary</div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="meta">Applicant status</div>
-              <div class="stat emph">Accredited</div>
-            </div>
-            <div style="text-align:right">
-              <div class="meta">Primary criterion</div>
-              <div class="stat">Net worth</div>
-            </div>
-          </div>
-
-          <div style="margin-top:12px" class="meta">Notes: Applicant reports investable assets between <strong>$5M–$10M</strong>. Shown values are mocked for demonstration.</div>
-        </div>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-        <div class="section">
-          <div class="section-title">Metadata</div>
-          <dl>
-            <dt>Form ID</dt><dd>f4b7b9e2-8c13-4b1d-900a-2a6a9d0d9f7b</dd>
-            <dt>Completed At</dt><dd>2025-10-20T14:23:00Z</dd>
-            <dt>Completed By</dt><dd>Alex R. Doyle (Advisor)</dd>
-            <dt>Firm</dt><dd>Lighthouse Capital Advisors</dd>
-          </dl>
-        </div>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-        <div class="section">
-          <div class="section-title">Quick checks</div>
-          <table>
-            <tbody>
-              <tr><td>Income test</td><td class="ok">Pass</td></tr>
-              <tr><td>Net worth test</td><td class="ok">Pass</td></tr>
-              <tr><td>Entity test</td><td>—</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-      </aside>
+      <footer>
+        This mock document is for demonstration only and does not constitute
+        legal or compliance advice. Real forms must follow firm templates and
+        regulatory guidance.
+      </footer>
     </div>
-
-    <footer>
-      This mock document is for demonstration only and does not constitute legal or compliance advice. Real forms must follow firm templates and regulatory guidance.
-    </footer>
-  </div>
-</body>
+  </body>
 </html>

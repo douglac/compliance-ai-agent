@@ -21,18 +21,28 @@ const Signature = z.object({
 
 const ClientInfo = z.object({
   name: z.string(),
+  clientId: UUID.optional(),
   clientType: z.enum(['individual', 'entity']),
   contactEmail: z.string().email(),
   contactPhone: z.string(),
   mailingAddress: z.string(),
+  preferredContactTimes: z.array(z.string()).optional(),
+  communicationChannel: z
+    .enum(['email', 'phone', 'portal', 'in_person'])
+    .optional(),
+  relationshipManager: z.string().optional(),
 })
 
 const FinancialProfile = z.object({
   netWorthExPrimaryResidence: z.number().min(0),
   annualIncome: z.number().min(0),
   investmentExperience: z.string(),
+  investmentExperienceYears: z.number().min(0).optional(),
   currentInvestmentAssets: z.number().min(0),
+  liquidAssets: z.number().min(0).optional(),
   otherLiabilities: z.number().min(0),
+  employmentStatus: z.string().optional(),
+  industryExperience: z.array(z.string()).optional(),
 })
 
 const RiskToleranceLevel = z.enum([
@@ -54,31 +64,56 @@ const RiskToleranceAssessment = z.object({
   experienceWithAlternatives: z.string().optional(),
   experienceYears: z.number().min(0).optional(),
   overallRiskLevel: RiskToleranceLevel,
+  concentrationLimits: z
+    .object({
+      maxSingleInvestment: z.number().min(0).max(100).optional(),
+      maxAlternativesAllocation: z.number().min(0).max(100).optional(),
+    })
+    .optional(),
 })
 
 const SuitabilitySummary = z.object({
   suitableForAlternatives: z.boolean(),
+  recommendedAllocation: z.number().min(0).max(100).optional(),
   portfolioRecommendations: z.array(z.string()).optional(),
+  restrictedInvestmentTypes: z.array(z.string()).optional(),
   periodicReviewRequired: z.boolean().default(true),
+  reviewFrequencyMonths: z.number().min(1).default(12),
   additionalNotes: z.string().optional(),
 })
 
 const CertificationMeta = z.object({
   formId: UUID.optional(),
+  tenantId: UUID.optional(),
   completedAt: ISODate,
   completedBy: z.string().optional(),
   advisorFirm: z.string().optional(),
   advisorContact: z.string().optional(),
+  lastReviewDate: ISODate.optional(),
+  nextReviewDate: ISODate.optional(),
+  riskLevel: z.enum(['low', 'medium', 'high']).optional(),
+  complianceScore: z.number().min(0).max(100).optional(),
+  regulatoryFramework: z.array(z.string()).optional(),
 })
 
 export const InvestmentSuitabilityQuestionnaire = z
   .object({
     type: z.literal('InvestmentSuitabilityQuestionnaire'),
-    version: z.string().optional(),
+    version: z.string().default('1.0'),
     client: ClientInfo,
     financialProfile: FinancialProfile,
     riskTolerance: RiskToleranceAssessment,
     suitability: SuitabilitySummary,
+    relatedEntities: z
+      .array(
+        z.object({
+          entityId: UUID.optional(),
+          name: z.string(),
+          relationship: z.string(),
+          impactOnSuitability: z.string().optional(),
+        })
+      )
+      .optional(),
     supportingDocuments: z.array(Attachment).optional(),
     signatures: z.array(Signature).min(2),
     metadata: CertificationMeta.optional(),

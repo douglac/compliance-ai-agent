@@ -1,105 +1,298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Alternative Investment Risk Disclosure & Acknowledgment — Mock</title>
-  <style>
-    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#f8fafc; color:#1e293b; padding:28px}
-    .container{max-width:960px;margin:0 auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08)}
-    header{margin-bottom:24px}
-    h1{font-size:22px;margin:0}
-    .sub{color:#64748b;font-size:14px}
-    .section{margin-bottom:22px}
-    .section-title{font-size:14px;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
-    dl{display:grid;grid-template-columns:200px 1fr;row-gap:10px;column-gap:10px}
-    dt{color:#64748b;font-size:13px}
-    dd{margin:0;font-size:14px}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:8px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
-    .signature{border-top:1px dashed #cbd5e1;padding-top:10px;margin-top:10px}
-    .badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#fef9c3;color:#b45309;font-weight:600;font-size:13px}
-    .ok{color:#16a34a;font-weight:700}
-    .meta{font-size:12px;color:#64748b}
-    ul{padding-left:18px}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Alternative Investment Risk Disclosure & Acknowledgment</h1>
-      <div class="sub">High-Risk Investment Disclosure — Mock</div>
-    </header>
-
-    <div class="section">
-      <div class="section-title">Client Information</div>
-      <dl>
-        <dt>Name</dt><dd>Jordan A. Mercer</dd>
-        <dt>Client Type</dt><dd>Individual</dd>
-        <dt>Contact Email</dt><dd>jordan.mercer@example.com</dd>
-        <dt>Phone</dt><dd>+1 (555) 221-0098</dd>
-        <dt>Mailing Address</dt><dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
-      </dl>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Investment Information</div>
-      <dl>
-        <dt>Fund Name</dt><dd>Hedge Fund ABC — Series X</dd>
-        <dt>Investment Type</dt><dd>Alternative / Hedge Fund</dd>
-        <dt>Investment Amount</dt><dd>$1,500,000</dd>
-        <dt>Liquidity Terms</dt><dd>Quarterly Redemptions, 90-Day Notice</dd>
-        <dt>Expected Return Range</dt><dd>8–20% annually (not guaranteed)</dd>
-      </dl>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Key Risk Disclosures</div>
-      <ul>
-        <li>Investment is speculative and may result in substantial loss of capital.</li>
-        <li>Past performance is not indicative of future results.</li>
-        <li>Limited liquidity; early redemption may be restricted.</li>
-        <li>Leverage and derivatives may amplify gains or losses.</li>
-        <li>Investments may be subject to regulatory, market, and operational risks.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Client Acknowledgment</div>
-      <ul>
-        <li>Understands the risks and illiquidity of the investment — <strong>agreed</strong></li>
-        <li>Confirms sufficient financial sophistication and risk tolerance — <strong>agreed</strong></li>
-        <li>Receives and reviews offering materials and disclosures — <strong>agreed</strong></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Supporting Documents</div>
-      <ul>
-        <li>Offering Memorandum (mock)</li>
-        <li>Subscription Agreement (mock)</li>
-        <li>Investment Risk Summary (mock)</li>
-      </ul>
-    </div>
-
-    <div class="signature">
-      <div class="section-title">Signatures</div>
-      <div style="display:flex;gap:24px;align-items:center">
-        <div>
-          <div style="font-weight:700">Jordan A. Mercer</div>
-          <div class="meta">Signed: 2025-10-21</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Alternative Investment Risk Disclosure & Acknowledgment — Mock
+    </title>
+    <style>
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+          Helvetica, Arial;
+        background: #f8fafc;
+        color: #1e293b;
+        padding: 28px;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      .sub {
+        color: #64748b;
+        font-size: 14px;
+      }
+      .section {
+        margin-bottom: 22px;
+      }
+      .section-title {
+        font-size: 14px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+      dl {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        row-gap: 10px;
+        column-gap: 10px;
+      }
+      dt {
+        color: #64748b;
+        font-size: 13px;
+      }
+      dd {
+        margin: 0;
+        font-size: 14px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 13px;
+      }
+      .signature {
+        border-top: 1px dashed #cbd5e1;
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #fef9c3;
+        color: #b45309;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .ok {
+        color: #16a34a;
+        font-weight: 700;
+      }
+      .meta {
+        font-size: 12px;
+        color: #64748b;
+      }
+      ul {
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Alternative Investment Risk Disclosure & Acknowledgment</h1>
+        <div class="sub">High-Risk Investment Disclosure — Mock</div>
+        <div class="badge" style="margin-top: 8px">
+          Risk Level: High | Status: Compliant
         </div>
-        <div style="border-left:1px solid #cbd5e1;padding-left:14px">
-          <div style="font-weight:700">Alex R. Doyle</div>
-          <div class="meta">Advisor, Lighthouse Capital</div>
-          <div class="meta">Signed: 2025-10-21</div>
+      </header>
+
+      <div class="section">
+        <div class="section-title">Client Information</div>
+        <dl>
+          <dt>Client ID</dt>
+          <dd>c-789abc-def</dd>
+          <dt>Name</dt>
+          <dd>Jordan A. Mercer</dd>
+          <dt>Client Type</dt>
+          <dd>Individual</dd>
+          <dt>Contact Email</dt>
+          <dd>jordan.mercer@example.com</dd>
+          <dt>Phone</dt>
+          <dd>+1 (555) 221-0098</dd>
+          <dt>Mailing Address</dt>
+          <dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
+          <dt>Accreditation Status</dt>
+          <dd class="ok">Accredited Investor</dd>
+        </dl>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Investment Information</div>
+        <dl>
+          <dt>Fund ID</dt>
+          <dd>fund-abc-series-x</dd>
+          <dt>Fund Name</dt>
+          <dd>Hedge Fund ABC — Series X</dd>
+          <dt>Investment Type</dt>
+          <dd>Alternative / Hedge Fund</dd>
+          <dt>Asset Class</dt>
+          <dd>Hedge Fund</dd>
+          <dt>Investment Amount</dt>
+          <dd>$1,500,000</dd>
+          <dt>Minimum Investment</dt>
+          <dd>$1,000,000</dd>
+          <dt>Liquidity Terms</dt>
+          <dd>Quarterly Redemptions, 90-Day Notice</dd>
+          <dt>Lockup Period</dt>
+          <dd>18 months</dd>
+          <dt>Redemption Frequency</dt>
+          <dd>Quarterly (after lockup)</dd>
+          <dt>Expected Return Range</dt>
+          <dd>8–20% annually (not guaranteed)</dd>
+          <dt>Management Fee</dt>
+          <dd>2.0%</dd>
+          <dt>Performance Fee</dt>
+          <dd>20% above high water mark</dd>
+        </dl>
+        <div class="meta" style="margin-top: 8px">
+          <strong>Required Documents:</strong> Subscription Agreement,
+          Accredited Investor Certification, W-9 Form
         </div>
       </div>
-    </div>
 
-    <footer class="meta" style="margin-top:18px">
-      Mock report for demonstration purposes only; not a legally binding disclosure.
-    </footer>
-  </div>
-</body>
+      <div class="section">
+        <div class="section-title">Key Risk Disclosures</div>
+        <ul>
+          <li>
+            <strong>Speculative Risk:</strong> Investment is speculative and may
+            result in substantial loss of capital. ✓
+          </li>
+          <li>
+            <strong>Past Performance:</strong> Past performance is not
+            indicative of future results. ✓
+          </li>
+          <li>
+            <strong>Limited Liquidity:</strong> Early redemption may be
+            restricted; 18-month lockup period applies. ✓
+          </li>
+          <li>
+            <strong>Leverage & Derivatives:</strong> Fund may use leverage and
+            derivatives that amplify gains or losses. ✓
+          </li>
+          <li>
+            <strong>Regulatory & Operational Risks:</strong> Investments subject
+            to regulatory, market, and operational risks. ✓
+          </li>
+          <li>
+            <strong>Market Risk:</strong> Value may fluctuate significantly
+            based on market conditions. ✓
+          </li>
+          <li>
+            <strong>Concentration Risk:</strong> Portfolio may have concentrated
+            positions increasing volatility. ✓
+          </li>
+          <li>
+            <strong>Counterparty Risk:</strong> Exposure to counterparty credit
+            risk in derivatives transactions. ✓
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Client Acknowledgment</div>
+        <ul>
+          <li>
+            Understands the risks and illiquidity of the investment —
+            <strong>agreed</strong>
+          </li>
+          <li>
+            Confirms sufficient financial sophistication and risk tolerance —
+            <strong>agreed</strong>
+          </li>
+          <li>
+            Receives and reviews offering materials and disclosures —
+            <strong>agreed</strong>
+          </li>
+          <li>
+            Reviewed subscription agreement thoroughly — <strong>agreed</strong>
+          </li>
+          <li>Understands all fees and expenses — <strong>agreed</strong></li>
+          <li>
+            Acknowledges no liquidity guarantee during lockup —
+            <strong>agreed</strong>
+          </li>
+          <li>
+            Confirms investment suitability based on financial profile —
+            <strong>agreed</strong>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Supporting Documents</div>
+        <ul>
+          <li>Offering Memorandum (mock)</li>
+          <li>Subscription Agreement (mock)</li>
+          <li>Investment Risk Summary (mock)</li>
+          <li>Fund Performance History (mock)</li>
+          <li>Accredited Investor Certification (on file)</li>
+        </ul>
+      </div>
+
+      <div class="signature">
+        <div class="section-title">Signatures</div>
+        <div style="display: flex; gap: 24px; align-items: center">
+          <div>
+            <div style="font-weight: 700">Jordan A. Mercer</div>
+            <div class="meta">Signed: 2025-10-21</div>
+          </div>
+          <div style="border-left: 1px solid #cbd5e1; padding-left: 14px">
+            <div style="font-weight: 700">Alex R. Doyle</div>
+            <div class="meta">Advisor, Lighthouse Capital</div>
+            <div class="meta">Signed: 2025-10-21</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="section"
+        style="
+          margin-top: 18px;
+          padding: 12px;
+          background: #fffbeb;
+          border-radius: 8px;
+          border: 1px solid #fbbf24;
+        "
+      >
+        <div class="section-title">Metadata & Compliance</div>
+        <dl>
+          <dt>Form ID</dt>
+          <dd>aird-def789-ghi</dd>
+          <dt>Tenant ID</dt>
+          <dd>tenant-lighthouse-001</dd>
+          <dt>Completed At</dt>
+          <dd>2025-10-21T16:45:00Z</dd>
+          <dt>Review Date</dt>
+          <dd>2025-10-21</dd>
+          <dt>Expiry Date</dt>
+          <dd>2026-10-21</dd>
+          <dt>Risk Level</dt>
+          <dd>High</dd>
+          <dt>Compliance Status</dt>
+          <dd class="ok">Compliant</dd>
+          <dt>Regulatory Framework</dt>
+          <dd>SEC Reg D, FINRA Rule 2111</dd>
+          <dt>Advisor Firm</dt>
+          <dd>Lighthouse Capital Advisors</dd>
+          <dt>Advisor Contact</dt>
+          <dd>alex.doyle@lighthouse.com</dd>
+        </dl>
+      </div>
+
+      <footer class="meta" style="margin-top: 18px">
+        Mock report for demonstration purposes only; not a legally binding
+        disclosure.
+      </footer>
+    </div>
+  </body>
 </html>
