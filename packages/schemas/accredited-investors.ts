@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const UUID = z.uuid()
+const UUID = z.string().uuid()
 const ISODate = z.string().refine((s) => !Number.isNaN(Date.parse(s)), {
   message: 'must be an ISO date string',
 })
@@ -39,13 +39,17 @@ const IndividualAccreditation = z.object({
     .min(0, 'income must be non-negative')
     .optional(),
   expectedThisYearIncome: z.number().min(0).optional(),
+  jointIncomeWithSpouse: z.number().min(0).optional(),
   // Net worth excluding primary residence (in USD)
   netWorthExPrimaryResidence: z.number().min(0).optional(),
+  investableAssets: z.number().min(0).optional(),
   // Indicates whether spouse/partner income is being relied upon for joint-income tests
   jointWithSpouse: z.boolean().optional(),
   mailingAddress: z.string().optional(),
   contactEmail: z.string().email().optional(),
   contactPhone: z.string().optional(),
+  preferredContactTimes: z.array(z.string()).optional(),
+  communicationPreference: z.enum(['email', 'phone', 'portal']).optional(),
   supportingDocuments: z.array(Attachment).optional(),
 })
 
@@ -85,16 +89,22 @@ const EntityAccreditation = z.object({
 
 const CertificationMeta = z.object({
   formId: UUID.optional(),
+  tenantId: UUID.optional(),
   completedAt: ISODate,
   completedBy: z.string().optional(), // name of advisor or preparer
   advisorFirm: z.string().optional(),
   advisorContact: z.string().optional(),
+  lastReviewDate: ISODate.optional(),
+  nextReviewDate: ISODate.optional(),
+  riskLevel: z.enum(['low', 'medium', 'high']).optional(),
+  complianceScore: z.number().min(0).max(100).optional(),
+  notes: z.string().optional(),
 })
 
 export const AccreditedInvestorCertification = z
   .object({
     type: z.literal('AccreditedInvestorCertification'),
-    version: z.string().optional(),
+    version: z.string().default('1.0'),
     statement: z
       .string()
       .optional()
@@ -109,7 +119,41 @@ export const AccreditedInvestorCertification = z
       acknowledgesIlliquidity: z.boolean().default(true),
       acknowledgesLossRisk: z.boolean().default(true),
       consentsToVerification: z.boolean().default(false).optional(),
+      understandsPrivateInvestments: z.boolean().default(true).optional(),
+      acknowledgesLockupPeriods: z.boolean().default(true).optional(),
     }),
+    accreditationTests: z
+      .object({
+        netWorthTest: z
+          .object({
+            value: z.number().min(0).optional(),
+            meetsThreshold: z.boolean(),
+            notes: z.string().optional(),
+          })
+          .optional(),
+        incomeTest: z
+          .object({
+            value: z.number().min(0).optional(),
+            meetsThreshold: z.boolean(),
+            type: z.enum(['individual', 'joint']).optional(),
+            notes: z.string().optional(),
+          })
+          .optional(),
+        entityTest: z
+          .object({
+            totalAssets: z.number().min(0).optional(),
+            meetsThreshold: z.boolean(),
+            notes: z.string().optional(),
+          })
+          .optional(),
+      })
+      .optional(),
+    primaryCriterion: z
+      .enum(['net_worth', 'income', 'entity', 'professional'])
+      .optional(),
+    accreditationStatus: z
+      .enum(['accredited', 'pending', 'not_accredited'])
+      .default('pending'),
     signatures: z.array(Signature).min(1),
     metadata: CertificationMeta.optional(),
   })

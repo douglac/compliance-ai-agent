@@ -1,108 +1,321 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Investment Suitability Questionnaire — Mock</title>
-  <style>
-    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#f1f5f9; color:#0f172a; padding:28px}
-    .container{max-width:960px;margin:0 auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08)}
-    header{margin-bottom:24px}
-    h1{font-size:22px;margin:0}
-    .sub{color:#64748b;font-size:14px}
-    .section{margin-bottom:22px}
-    .section-title{font-size:14px;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
-    dl{display:grid;grid-template-columns:200px 1fr;row-gap:10px;column-gap:10px}
-    dt{color:#64748b;font-size:13px}
-    dd{margin:0;font-size:14px}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:8px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
-    .signature{border-top:1px dashed #cbd5e1;padding-top:10px;margin-top:10px}
-    .badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#dbeafe;color:#1e40af;font-weight:600;font-size:13px}
-    .ok{color:#16a34a;font-weight:700}
-    .meta{font-size:12px;color:#64748b}
-    ul{padding-left:18px}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Investment Suitability Questionnaire</h1>
-      <div class="sub">Mock Report — Client Profile and Risk Assessment</div>
-    </header>
-
-    <div class="section">
-      <div class="section-title">Client Information</div>
-      <dl>
-        <dt>Name</dt><dd>Jordan A. Mercer</dd>
-        <dt>Client Type</dt><dd>Individual</dd>
-        <dt>Email</dt><dd>jordan.mercer@example.com</dd>
-        <dt>Phone</dt><dd>+1 (555) 221-0098</dd>
-        <dt>Address</dt><dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
-      </dl>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Financial Profile</div>
-      <dl>
-        <dt>Net Worth (ex primary residence)</dt><dd>$6,500,000</dd>
-        <dt>Annual Income</dt><dd>$260,000</dd>
-        <dt>Investment Experience</dt><dd>10+ years (stocks, bonds, alternative investments)</dd>
-        <dt>Current Investment Assets</dt><dd>$5,200,000</dd>
-        <dt>Other Liabilities</dt><dd>$120,000</dd>
-      </dl>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Risk Tolerance Assessment</div>
-      <table>
-        <thead><tr><th>Risk Category</th><th>Client Response</th><th>Assessment</th></tr></thead>
-        <tbody>
-          <tr><td>Investment Horizon</td><td>10+ years</td><td class="ok">Long-term</td></tr>
-          <tr><td>Loss Tolerance</td><td>Can sustain 20–30% temporary losses</td><td class="ok">Moderate-High</td></tr>
-          <tr><td>Liquidity Needs</td><td>Minimal</td><td class="ok">Low</td></tr>
-          <tr><td>Investment Goals</td><td>Growth, capital appreciation, tax efficiency</td><td class="ok">Aggressive</td></tr>
-          <tr><td>Experience with Alternatives</td><td>5 years in hedge funds / private funds</td><td class="ok">High</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Suitability Summary</div>
-      <ul>
-        <li>Client is suitable for alternative / high-risk investments — <strong>confirmed</strong></li>
-        <li>Portfolio should balance liquid and illiquid instruments — <strong>recommended</strong></li>
-        <li>Periodic review and risk reassessment recommended — <strong>acknowledged</strong></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Supporting Documentation</div>
-      <ul>
-        <li>Recent Investment Account Statements (mock)</li>
-        <li>Net Worth Certification by CPA (mock)</li>
-        <li>Risk Tolerance Questionnaire Form (mock)</li>
-      </ul>
-    </div>
-
-    <div class="signature">
-      <div class="section-title">Signatures</div>
-      <div style="display:flex;gap:24px;align-items:center">
-        <div>
-          <div style="font-weight:700">Jordan A. Mercer</div>
-          <div class="meta">Signed: 2025-10-21</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Investment Suitability Questionnaire — Mock</title>
+    <style>
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+          Helvetica, Arial;
+        background: #f1f5f9;
+        color: #0f172a;
+        padding: 28px;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      .sub {
+        color: #64748b;
+        font-size: 14px;
+      }
+      .section {
+        margin-bottom: 22px;
+      }
+      .section-title {
+        font-size: 14px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+      dl {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        row-gap: 10px;
+        column-gap: 10px;
+      }
+      dt {
+        color: #64748b;
+        font-size: 13px;
+      }
+      dd {
+        margin: 0;
+        font-size: 14px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 13px;
+      }
+      .signature {
+        border-top: 1px dashed #cbd5e1;
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #dbeafe;
+        color: #1e40af;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .ok {
+        color: #16a34a;
+        font-weight: 700;
+      }
+      .meta {
+        font-size: 12px;
+        color: #64748b;
+      }
+      ul {
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Investment Suitability Questionnaire</h1>
+        <div class="sub">Mock Report — Client Profile and Risk Assessment</div>
+        <div class="badge" style="margin-top: 8px">
+          Compliance Score: 92/100
         </div>
-        <div style="border-left:1px solid #cbd5e1;padding-left:14px">
-          <div style="font-weight:700">Alex R. Doyle</div>
-          <div class="meta">Advisor, Lighthouse Capital</div>
-          <div class="meta">Signed: 2025-10-21</div>
+      </header>
+
+      <div class="section">
+        <div class="section-title">Client Information</div>
+        <dl>
+          <dt>Client ID</dt>
+          <dd>c-789abc-def</dd>
+          <dt>Name</dt>
+          <dd>Jordan A. Mercer</dd>
+          <dt>Client Type</dt>
+          <dd>Individual</dd>
+          <dt>Email</dt>
+          <dd>jordan.mercer@example.com</dd>
+          <dt>Phone</dt>
+          <dd>+1 (555) 221-0098</dd>
+          <dt>Address</dt>
+          <dd>422 Harbor Lane, Stamford, CT, 06901, USA</dd>
+          <dt>Preferred Contact</dt>
+          <dd>Email, Tuesdays & Thursdays 2-4 PM EST</dd>
+          <dt>Communication Channel</dt>
+          <dd>Email primary, phone secondary</dd>
+          <dt>Relationship Manager</dt>
+          <dd>Alex R. Doyle</dd>
+        </dl>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Financial Profile</div>
+        <dl>
+          <dt>Net Worth (ex primary residence)</dt>
+          <dd>$6,500,000</dd>
+          <dt>Annual Income</dt>
+          <dd>$260,000</dd>
+          <dt>Investment Experience</dt>
+          <dd>10+ years (stocks, bonds, alternative investments)</dd>
+          <dt>Experience Years</dt>
+          <dd>12 years</dd>
+          <dt>Current Investment Assets</dt>
+          <dd>$5,200,000</dd>
+          <dt>Liquid Assets</dt>
+          <dd>$800,000</dd>
+          <dt>Other Liabilities</dt>
+          <dd>$120,000</dd>
+          <dt>Employment Status</dt>
+          <dd>Self-employed entrepreneur</dd>
+          <dt>Industry Experience</dt>
+          <dd>Technology, Real Estate</dd>
+        </dl>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Risk Tolerance Assessment</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Risk Category</th>
+              <th>Client Response</th>
+              <th>Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Investment Horizon</td>
+              <td>10+ years</td>
+              <td class="ok">Long-term</td>
+            </tr>
+            <tr>
+              <td>Loss Tolerance</td>
+              <td>Can sustain 20–30% temporary losses</td>
+              <td class="ok">Moderate-High</td>
+            </tr>
+            <tr>
+              <td>Loss Tolerance %</td>
+              <td>25%</td>
+              <td class="ok">Within acceptable range</td>
+            </tr>
+            <tr>
+              <td>Liquidity Needs</td>
+              <td>Minimal</td>
+              <td class="ok">Low</td>
+            </tr>
+            <tr>
+              <td>Investment Goals</td>
+              <td>Growth, capital appreciation, tax efficiency</td>
+              <td class="ok">Aggressive</td>
+            </tr>
+            <tr>
+              <td>Experience with Alternatives</td>
+              <td>5 years in hedge funds / private funds</td>
+              <td class="ok">High</td>
+            </tr>
+            <tr>
+              <td>Overall Risk Level</td>
+              <td>Moderate-High</td>
+              <td class="ok">Aligned</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="meta" style="margin-top: 6px">
+          <strong>Concentration Limits:</strong> Max single investment: 20% |
+          Max alternatives allocation: 40%
         </div>
       </div>
-    </div>
 
-    <footer class="meta" style="margin-top:18px">
-      Mock report generated for demonstration purposes only; does not constitute legal or compliance advice.
-    </footer>
-  </div>
-</body>
+      <div class="section">
+        <div class="section-title">Suitability Summary</div>
+        <ul>
+          <li>
+            Client is suitable for alternative / high-risk investments —
+            <strong>confirmed</strong>
+          </li>
+          <li>
+            Recommended allocation to alternatives: <strong>30-35%</strong>
+          </li>
+          <li>
+            Portfolio should balance liquid and illiquid instruments —
+            <strong>recommended</strong>
+          </li>
+          <li>Restricted investment types: <strong>None identified</strong></li>
+          <li>
+            Periodic review and risk reassessment recommended —
+            <strong>acknowledged</strong>
+          </li>
+          <li>Review frequency: <strong>Every 12 months</strong></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Related Entities</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Entity</th>
+              <th>Relationship</th>
+              <th>Impact on Suitability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>JS Holdings LLC</td>
+              <td>Beneficial Owner (100%)</td>
+              <td>Increases net worth calculation</td>
+            </tr>
+            <tr>
+              <td>Mercer Family Trust</td>
+              <td>Trustee</td>
+              <td>Additional investment capacity</td>
+            </tr>
+            <tr>
+              <td>Sarah Johnson</td>
+              <td>Spouse/Partner</td>
+              <td>Joint income considerations</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Supporting Documentation</div>
+        <ul>
+          <li>Recent Investment Account Statements (mock)</li>
+          <li>Net Worth Certification by CPA (mock)</li>
+          <li>Risk Tolerance Questionnaire Form (mock)</li>
+          <li>Investment Experience Summary (mock)</li>
+        </ul>
+      </div>
+
+      <div class="signature">
+        <div class="section-title">Signatures</div>
+        <div style="display: flex; gap: 24px; align-items: center">
+          <div>
+            <div style="font-weight: 700">Jordan A. Mercer</div>
+            <div class="meta">Signed: 2025-10-21</div>
+          </div>
+          <div style="border-left: 1px solid #cbd5e1; padding-left: 14px">
+            <div style="font-weight: 700">Alex R. Doyle</div>
+            <div class="meta">Advisor, Lighthouse Capital</div>
+            <div class="meta">Signed: 2025-10-21</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="section"
+        style="
+          margin-top: 18px;
+          padding: 12px;
+          background: #f8fafc;
+          border-radius: 8px;
+        "
+      >
+        <div class="section-title">Metadata & Compliance</div>
+        <dl>
+          <dt>Form ID</dt>
+          <dd>isq-456def-789</dd>
+          <dt>Tenant ID</dt>
+          <dd>tenant-lighthouse-001</dd>
+          <dt>Last Review Date</dt>
+          <dd>2025-10-21</dd>
+          <dt>Next Review Date</dt>
+          <dd>2026-10-21</dd>
+          <dt>Risk Level</dt>
+          <dd>Medium</dd>
+          <dt>Compliance Score</dt>
+          <dd>92/100</dd>
+          <dt>Regulatory Framework</dt>
+          <dd>SEC, FINRA, MiFID II</dd>
+        </dl>
+      </div>
+
+      <footer class="meta" style="margin-top: 18px">
+        Mock report generated for demonstration purposes only; does not
+        constitute legal or compliance advice.
+      </footer>
+    </div>
+  </body>
 </html>
