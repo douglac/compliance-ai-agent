@@ -34,6 +34,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      schemas:
+        specifier: workspace:*
+        version: link:../schemas
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -62,6 +65,12 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.3
+
+  packages/schemas:
+    dependencies:
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
 
 packages:
 
