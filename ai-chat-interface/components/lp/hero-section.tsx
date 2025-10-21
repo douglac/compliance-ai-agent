@@ -33,12 +33,12 @@ export function HeroSection() {
 
         {/* Subheadline */}
         <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in [animation-delay:400ms]">
-          ComplianceIQ{" "}
+          ComplianceIQ is a{" "}
           <span className="text-primary font-semibold">
             {" "}
-            multiagent compliance orchestration{" "}
+            Multi-agent Orchestration System{" "}
           </span>{" "}
-          to transform your compliance workflow from reactive bottleneck to
+          that transforms your compliance workflow from reactive bottleneck to
           proactive powerhouse.
         </p>
 
