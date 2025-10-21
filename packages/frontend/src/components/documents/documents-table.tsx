@@ -14,6 +14,7 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown, Filter, X } from 'lucide-react'
 import {
+  createParser,
   parseAsInteger,
   parseAsString,
   parseAsStringLiteral,
@@ -60,10 +61,29 @@ const typeValues = [
 ] as const
 const statusValues = ['all', 'valid', 'expiring', 'expired', 'pending'] as const
 
+const parseAsSortingState = createParser({
+  parse(query) {
+    const [id, direction = 'desc'] = query.split(':')
+    return {
+      id,
+      desc: direction === 'desc',
+    }
+  },
+  serialize(value) {
+    return `${value.id}:${value.desc ? 'desc' : 'asc'}`
+  },
+  eq(a, b) {
+    return a.id === b.id && a.desc === b.desc
+  },
+})
+
 const tableStateParser = {
   // Pagination
   page: parseAsInteger.withDefault(0),
   pageSize: parseAsInteger.withDefault(10),
+
+  // Sorting
+  sort: parseAsSortingState.withDefault({ id: 'issueDate', desc: true }),
 
   // Filters
   type: parseAsStringLiteral(typeValues).withDefault('all'),
@@ -75,16 +95,34 @@ export function DocumentsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
   // Use nuqs for URL state management
   const [tableState, setTableState] = useQueryStates(tableStateParser, {
-    history: 'push',
     shallow: false,
   })
+
+  // Convert single sort object to SortingState array
+  const sorting: SortingState = React.useMemo(() => {
+    return [tableState.sort]
+  }, [JSON.stringify(tableState.sort)])
+
+  // Handle sorting changes
+  const onSortingChange = React.useCallback(
+    (updater: React.SetStateAction<SortingState>) => {
+      console.log('onSortingChange')
+      const newSorting =
+        typeof updater === 'function' ? updater(sorting) : updater
+
+      // Only store the first sort (single column sorting)
+      if (newSorting.length > 0) {
+        setTableState({ sort: newSorting[0] })
+      }
+    },
+    []
+  )
 
   // Sync URL state with table filters
   const columnFilters: ColumnFiltersState = React.useMemo(() => {
@@ -106,38 +144,28 @@ export function DocumentsTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
+    onSortingChange,
+    // onPaginationChange,
+    onRowSelectionChange: setRowSelection,
+    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+    enableMultiSort: false,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      pagination: {
-        pageIndex: tableState.page,
-        pageSize: tableState.pageSize,
-      },
+      // pagination: {
+      //   pageIndex: tableState.page,
+      //   pageSize: tableState.pageSize,
+      // },
     },
-    onPaginationChange: (updater) => {
-      const newPagination =
-        typeof updater === 'function'
-          ? updater({
-              pageIndex: tableState.page,
-              pageSize: tableState.pageSize,
-            })
-          : updater
-
-      setTableState({
-        page: newPagination.pageIndex,
-        pageSize: newPagination.pageSize,
-      })
-    },
-    manualPagination: true,
+    manualPagination: false,
+    manualSorting: false,
+    manualFiltering: false,
   })
 
   const clearFilters = () => {
