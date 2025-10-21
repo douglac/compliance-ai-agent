@@ -1,6 +1,16 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -8,54 +18,58 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
+} from '@/components/ui/table'
+import { Search } from 'lucide-react'
+import { useQueryState } from 'nuqs'
+import { useEffect, useMemo, useState } from 'react'
 
 type Client = {
-  id: string;
-  name: string;
-  type: "Individual";
-  risk_level: "Low" | "Medium" | "High";
-  net_worth: number;
-  onboarding_date: string;
-  last_review_date: string;
-  preferred_contact_times: string[];
-  investment_preferences: string[];
-};
+  id: string
+  name: string
+  type: 'Individual'
+  risk_level: 'Low' | 'Medium' | 'High'
+  net_worth: number
+  onboarding_date: string
+  last_review_date: string
+  preferred_contact_times: string[]
+  investment_preferences: string[]
+}
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [clients, setClients] = useState<Client[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [search, setSearch] = useQueryState('search', { defaultValue: '' })
 
   useEffect(() => {
     // Fetch clients from API
-    fetch("/api/clients")
+    fetch('/api/clients')
       .then((res) => res.json())
       .then((data) => {
         // Ensure data is an array before setting
         if (Array.isArray(data)) {
-          setClients(data);
+          setClients(data)
         } else {
-          console.error("[v0] Invalid data format:", data);
-          setClients([]);
+          console.error('[v0] Invalid data format:', data)
+          setClients([])
         }
-        setIsLoading(false);
+        setIsLoading(false)
       })
       .catch((error) => {
-        console.error("[v0] Error fetching clients:", error);
-        setClients([]);
-        setIsLoading(false);
-      });
-  }, []);
+        console.error('[v0] Error fetching clients:', error)
+        setClients([])
+        setIsLoading(false)
+      })
+  }, [])
+
+  // Filter clients based on search query
+  const filteredClients = useMemo(() => {
+    if (!search) return clients
+
+    const searchLower = search.toLowerCase()
+    return clients.filter((client) =>
+      client.name.toLowerCase().includes(searchLower)
+    )
+  }, [clients, search])
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">
@@ -67,16 +81,29 @@ export default function ClientsPage() {
           </p>
         </div>
         <Badge variant="secondary" className="text-sm">
-          {clients.length} Total
+          {filteredClients.length} {search ? 'Found' : 'Total'}
         </Badge>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>All Clients</CardTitle>
-          <CardDescription>
-            Individual clients and their compliance information
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>All Clients</CardTitle>
+              <CardDescription>
+                Individual clients and their compliance information
+              </CardDescription>
+            </div>
+            <div className="relative w-full max-w-sm">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search clients by name..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -91,13 +118,17 @@ export default function ClientsPage() {
                 </div>
               ))}
             </div>
-          ) : clients.length === 0 ? (
+          ) : filteredClients.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <p className="text-lg font-medium text-muted-foreground">
-                No clients found
+                {search
+                  ? 'No clients found matching your search'
+                  : 'No clients found'}
               </p>
               <p className="text-sm text-muted-foreground mt-2">
-                Make sure MongoDB is running and seeded with data
+                {search
+                  ? 'Try adjusting your search query'
+                  : 'Make sure MongoDB is running and seeded with data'}
               </p>
             </div>
           ) : (
@@ -113,7 +144,7 @@ export default function ClientsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {clients.map((client) => (
+                {filteredClients.map((client) => (
                   <TableRow key={client.id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -124,9 +155,9 @@ export default function ClientsPage() {
                           />
                           <AvatarFallback>
                             {client.name
-                              .split(" ")
+                              .split(' ')
                               .map((n) => n[0])
-                              .join("")}
+                              .join('')}
                           </AvatarFallback>
                         </Avatar>
                         <span className="font-medium">{client.name}</span>
@@ -135,11 +166,11 @@ export default function ClientsPage() {
                     <TableCell>
                       <Badge
                         variant={
-                          client.risk_level === "Low"
-                            ? "default"
-                            : client.risk_level === "Medium"
-                            ? "secondary"
-                            : "destructive"
+                          client.risk_level === 'Low'
+                            ? 'default'
+                            : client.risk_level === 'Medium'
+                            ? 'secondary'
+                            : 'destructive'
                         }
                       >
                         {client.risk_level}
@@ -180,5 +211,5 @@ export default function ClientsPage() {
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
