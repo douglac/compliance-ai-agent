@@ -44,7 +44,7 @@ function getDialogSizeClasses(size?: DialogSize) {
     case "xl":
       return "max-w-3xl sm:max-w-3xl";
     case "fullscreen":
-      return "w-[95vw] h-[95vh] max-w-none max-h-none";
+      return "w-[95vw] h-[95vh] max-w-none max-h-none p-0 gap-0";
     default:
       return "w-full max-w-[calc(100%-2rem)] sm:max-w-lg";
   }

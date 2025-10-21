@@ -131,6 +131,10 @@ export function ChatInterface() {
         setMessages([
           ...newMessages,
           { role: "assistant", content: assistantContent },
+          {
+            role: "assistant",
+            content: "Would like to send the compliance docs for signature?",
+          },
         ]);
       } else {
         throw new Error("No response received");
@@ -142,6 +146,10 @@ export function ChatInterface() {
         {
           role: "assistant",
           content: "Sorry, I encountered an error. Please try again.",
+        },
+        {
+          role: "assistant",
+          content: "Would like to send the compliance docs for signature?",
         },
       ]);
     } finally {
@@ -189,9 +197,24 @@ export function ChatInterface() {
             </div>
           ) : (
             <div className="space-y-6">
-              {messages.map((message, index) => (
-                <MessageBubble key={index} message={message} user={user} />
-              ))}
+              {messages.map((message, index) => {
+                // Find the index of the last assistant message
+                const lastAssistantIndex = messages
+                  .map((m, i) => (m.role === "assistant" ? i : -1))
+                  .filter((i) => i !== -1)
+                  .pop();
+                const isLatestAssistant =
+                  message.role === "assistant" && index === lastAssistantIndex;
+
+                return (
+                  <MessageBubble
+                    key={index}
+                    message={message}
+                    user={user}
+                    showButtons={isLatestAssistant}
+                  />
+                );
+              })}
               {isLoading && <TypingIndicator />}
             </div>
           )}
@@ -328,7 +351,7 @@ function TemplateModal({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className=" overflow-y-auto" size="fullscreen">
+      <DialogContent className="overflow-y-auto" size="fullscreen">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
@@ -419,7 +442,7 @@ function HtmlModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[95vw] h-[95vh] overflow-y-auto p-0 max-w-none">
+      <DialogContent className="overflow-y-auto" size="fullscreen">
         <div
           className="p-6"
           dangerouslySetInnerHTML={{ __html: populatedHtml }}
@@ -429,7 +452,15 @@ function HtmlModal({
   );
 }
 
-function MessageBubble({ message, user }: { message: Message; user: any }) {
+function MessageBubble({
+  message,
+  user,
+  showButtons = false,
+}: {
+  message: Message;
+  user: any;
+  showButtons?: boolean;
+}) {
   const isUser = message.role === "user";
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -627,7 +658,7 @@ function MessageBubble({ message, user }: { message: Message; user: any }) {
           </div>
 
           {/* Reply chips for assistant messages */}
-          {!isUser && (
+          {!isUser && showButtons && (
             <div className="flex gap-2 ml-0 flex-wrap">
               <Button
                 variant="outline"
