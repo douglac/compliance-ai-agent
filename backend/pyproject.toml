@@ -1,0 +1,9 @@
+[project]
+name = "clerkhack"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "graphiti-core>=0.22.0",
+]
