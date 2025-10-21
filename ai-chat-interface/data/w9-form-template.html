@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form W-9 - Request for Taxpayer Identification Number and Certification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .form-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-header {
+            border: 2px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .form-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .irs-notice {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 11px;
+            border-left: 3px solid #666;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: #e9e9e9;
+            padding: 5px;
+            font-size: 13px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            font-size: 12px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background: white;
+        }
+        
+        .checkbox-group {
+            margin: 10px 0;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .checkbox-group label {
+            display: inline;
+            font-weight: normal;
+            margin-right: 20px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .tin-section {
+            background: #fff9e6;
+            padding: 15px;
+            border: 1px solid #ffcc00;
+            margin: 20px 0;
+        }
+        
+        .signature-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border: 2px solid #0066cc;
+            margin-top: 30px;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+        
+        .help-text {
+            font-size: 10px;
+            color: #666;
+            margin-top: 3px;
+        }
+        
+        .ai-fill-indicator {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 10px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .form-container {
+                box-shadow: none;
+                padding: 0;
+            }
+            .ai-fill-indicator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-title">
+                Form W-9
+                <span class="ai-fill-indicator">AI Auto-Populated</span>
+            </div>
+            <div class="form-subtitle">
+                Request for Taxpayer Identification Number and Certification<br>
+                Department of the Treasury - Internal Revenue Service
+            </div>
+        </div>
+        
+        <div class="irs-notice">
+            <strong>Notice:</strong> Give this form to the requester. Do not send to the IRS.
+            Go to www.irs.gov/FormW9 for instructions and the latest information.
+        </div>
+        
+        <!-- Section 1: Name and Business Name -->
+        <div class="section">
+            <div class="section-title">Part I - Taxpayer Identification</div>
+            
+            <div class="form-group">
+                <label>1. Name (as shown on your income tax return) <span class="required">*</span></label>
+                <input type="text" id="legal_name" name="legal_name" required 
+                       placeholder="Enter legal name or business name">
+                <div class="help-text">Name is required on this line; do not leave this line blank.</div>
+            </div>
+            
+            <div class="form-group">
+                <label>2. Business name/disregarded entity name, if different from above</label>
+                <input type="text" id="business_name" name="business_name" 
+                       placeholder="Enter business name if applicable">
+            </div>
+            
+            <div class="form-group">
+                <label>3. Check appropriate box for federal tax classification <span class="required">*</span></label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="tax_class" value="individual"> Individual/sole proprietor</label>
+                    <label><input type="checkbox" name="tax_class" value="c_corp"> C Corporation</label>
+                    <label><input type="checkbox" name="tax_class" value="s_corp"> S Corporation</label>
+                    <label><input type="checkbox" name="tax_class" value="partnership"> Partnership</label>
+                    <label><input type="checkbox" name="tax_class" value="trust"> Trust/estate</label>
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="tax_class" value="llc"> Limited liability company (LLC)</label>
+                    <input type="text" name="llc_classification" placeholder="Enter tax classification (C, S, or P)" style="width: 50px; margin-left: 10px;">
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="tax_class" value="other"> Other</label>
+                    <input type="text" name="other_classification" placeholder="Specify" style="width: 200px; margin-left: 10px;">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>4. Exemptions (codes apply only to certain entities, not individuals)</label>
+                <div class="two-column">
+                    <div>
+                        <label>Exempt payee code (if any):</label>
+                        <input type="text" id="exempt_payee_code" name="exempt_payee_code" 
+                               placeholder="Enter code if applicable">
+                    </div>
+                    <div>
+                        <label>Exemption from FATCA reporting code (if any):</label>
+                        <input type="text" id="fatca_code" name="fatca_code" 
+                               placeholder="Enter code if applicable">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 2: Address -->
+        <div class="section">
+            <div class="section-title">Address Information</div>
+            
+            <div class="form-group">
+                <label>5. Address (number, street, and apt. or suite no.) <span class="required">*</span></label>
+                <input type="text" id="address" name="address" required 
+                       placeholder="Enter street address">
+            </div>
+            
+            <div class="form-group">
+                <label>6. City, state, and ZIP code <span class="required">*</span></label>
+                <input type="text" id="city_state_zip" name="city_state_zip" required 
+                       placeholder="City, State ZIP">
+            </div>
+            
+            <div class="form-group">
+                <label>7. List account number(s) here (optional)</label>
+                <input type="text" id="account_numbers" name="account_numbers" 
+                       placeholder="Account number(s) if any">
+            </div>
+        </div>
+        
+        <!-- Section 3: TIN -->
+        <div class="tin-section">
+            <div class="section-title">Part II - Taxpayer Identification Number (TIN)</div>
+            
+            <div class="two-column">
+                <div class="form-group">
+                    <label>Social Security Number (SSN)</label>
+                    <input type="text" id="ssn" name="ssn" pattern="\d{3}-\d{2}-\d{4}" 
+                           placeholder="XXX-XX-XXXX" maxlength="11">
+                    <div class="help-text">For individuals</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>OR Employer Identification Number (EIN)</label>
+                    <input type="text" id="ein" name="ein" pattern="\d{2}-\d{7}" 
+                           placeholder="XX-XXXXXXX" maxlength="10">
+                    <div class="help-text">For businesses</div>
+                </div>
+            </div>
+            
+            <div class="help-text" style="margin-top: 10px;">
+                <strong>Note:</strong> Enter your TIN in the appropriate box. The TIN must match the name given on line 1 
+                to avoid backup withholding. For individuals, this is generally your SSN. For businesses, this is your EIN.
+            </div>
+        </div>
+        
+        <!-- Certification Section -->
+        <div class="signature-section">
+            <div class="section-title">Part III - Certification</div>
+            
+            <p style="margin-bottom: 15px;">
+                Under penalties of perjury, I certify that:
+            </p>
+            
+            <ol style="margin-left: 20px; margin-bottom: 15px;">
+                <li>The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me);</li>
+                <li>I am not subject to backup withholding because: (a) I am exempt from backup withholding, or (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am no longer subject to backup withholding;</li>
+                <li>I am a U.S. citizen or other U.S. person;</li>
+                <li>The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct.</li>
+            </ol>
+            
+            <div class="signature-grid">
+                <div class="form-group">
+                    <label>Signature of U.S. person <span class="required">*</span></label>
+                    <input type="text" id="signature" name="signature" required 
+                           placeholder="Type full legal name as signature"
+                           style="border-bottom: 2px solid #000; border-top: none; border-left: none; border-right: none; background: transparent;">
+                </div>
+                
+                <div class="form-group">
+                    <label>Date <span class="required">*</span></label>
+                    <input type="date" id="signature_date" name="signature_date" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <strong>General Instructions:</strong><br>
+            Section references are to the Internal Revenue Code unless otherwise noted.<br>
+            Future developments: For the latest information about developments related to Form W-9 and its instructions, 
+            such as legislation enacted after they were published, go to www.irs.gov/FormW9.<br><br>
+            
+            <strong>Purpose of Form:</strong><br>
+            An individual or entity (Form W-9 requester) who is required to file an information return with the IRS must 
+            obtain your correct taxpayer identification number (TIN) to report income paid to you, mortgage interest you paid, 
+            acquisition or abandonment of secured property, cancellation of debt, or contributions you made to an IRA.
+        </div>
+    </div>
+</body>
+</html>

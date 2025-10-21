@@ -25,7 +25,7 @@ const _sourceSerif_4 = V0_Font_Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "VoltAgent AI Chat",
+  title: "ComplianceIQ Chat",
   description: "AI-powered chat interface with VoltAgent",
   generator: "v0.app",
 };

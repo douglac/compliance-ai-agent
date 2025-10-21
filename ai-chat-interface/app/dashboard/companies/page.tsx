@@ -41,11 +41,18 @@ export default function CompaniesPage() {
     fetch("/api/companies")
       .then((res) => res.json())
       .then((data) => {
-        setCompanies(data);
+        // Ensure data is an array before setting
+        if (Array.isArray(data)) {
+          setCompanies(data);
+        } else {
+          console.error("[v0] Invalid data format:", data);
+          setCompanies([]);
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.error("[v0] Error fetching companies:", error);
+        setCompanies([]);
         setIsLoading(false);
       });
   }, []);
@@ -83,6 +90,15 @@ export default function CompaniesPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          ) : companies.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <p className="text-lg font-medium text-muted-foreground">
+                No companies found
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Make sure MongoDB is running and seeded with data
+              </p>
             </div>
           ) : (
             <Table>

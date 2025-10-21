@@ -41,11 +41,18 @@ export default function ClientsPage() {
     fetch("/api/clients")
       .then((res) => res.json())
       .then((data) => {
-        setClients(data);
+        // Ensure data is an array before setting
+        if (Array.isArray(data)) {
+          setClients(data);
+        } else {
+          console.error("[v0] Invalid data format:", data);
+          setClients([]);
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.error("[v0] Error fetching clients:", error);
+        setClients([]);
         setIsLoading(false);
       });
   }, []);
@@ -83,6 +90,15 @@ export default function ClientsPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          ) : clients.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <p className="text-lg font-medium text-muted-foreground">
+                No clients found
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Make sure MongoDB is running and seeded with data
+              </p>
             </div>
           ) : (
             <Table>

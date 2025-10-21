@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { UserButton } from "@clerk/nextjs"
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { UserButton, useClerk } from "@clerk/nextjs";
 import {
   SidebarProvider,
   Sidebar,
@@ -16,18 +16,35 @@ import {
   SidebarMenuButton,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { Building2, Users, Receipt, MessageSquare, Sparkles } from "lucide-react"
+} from "@/components/ui/sidebar";
+import {
+  Building2,
+  Users,
+  Receipt,
+  MessageSquare,
+  Sparkles,
+  LogOut,
+} from "lucide-react";
 
 const navigation = [
   { name: "Chat", href: "/dashboard", icon: MessageSquare },
   { name: "Clients", href: "/dashboard/clients", icon: Users },
   { name: "Companies", href: "/dashboard/companies", icon: Building2 },
   { name: "Expenses", href: "/dashboard/expenses", icon: Receipt },
-]
+  { name: "Logout", href: "#", icon: LogOut, action: "logout" as const },
+];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+  const { signOut } = useClerk();
+
+  const handleLogout = async () => {
+    await signOut({ redirectUrl: "/sign-in" });
+  };
 
   return (
     <SidebarProvider>
@@ -38,8 +55,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Sparkles className="h-4 w-4 text-primary" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-foreground">VoltAgent</span>
-              <span className="text-xs text-muted-foreground">AI Dashboard</span>
+              <span className="text-sm font-semibold text-foreground">
+                ComplianceIQ
+              </span>
+              <span className="text-xs text-muted-foreground">
+                AI Dashboard
+              </span>
             </div>
           </div>
         </SidebarHeader>
@@ -47,17 +68,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <SidebarContent>
           <SidebarMenu>
             {navigation.map((item) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href;
+              const isLogout = "action" in item && item.action === "logout";
+
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive}>
-                    <Link href={item.href}>
+                  {isLogout ? (
+                    <SidebarMenuButton onClick={handleLogout}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.name}</span>
-                    </Link>
-                  </SidebarMenuButton>
+                    </SidebarMenuButton>
+                  ) : (
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.href}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  )}
                 </SidebarMenuItem>
-              )
+              );
             })}
           </SidebarMenu>
         </SidebarContent>
@@ -72,8 +102,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               }}
             />
             <div className="flex flex-1 flex-col overflow-hidden">
-              <span className="truncate text-sm font-medium text-foreground">Account</span>
-              <span className="truncate text-xs text-muted-foreground">Manage settings</span>
+              <span className="truncate text-sm font-medium text-foreground">
+                Account
+              </span>
+              <span className="truncate text-xs text-muted-foreground">
+                Manage settings
+              </span>
             </div>
           </div>
         </SidebarFooter>
@@ -87,5 +121,5 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <main className="flex-1">{children}</main>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

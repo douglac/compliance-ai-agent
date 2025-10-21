@@ -19,6 +19,7 @@ if (!MONGODB_DATABASE) {
 interface CachedConnection {
   client: MongoClient | null;
   db: Db | null;
+  promise: Promise<MongoClient> | null;
 }
 
 // Extend global to cache MongoDB connection across hot reloads in development
@@ -29,6 +30,7 @@ declare global {
 let cached: CachedConnection = global.mongoConnection || {
   client: null,
   db: null,
+  promise: null,
 };
 
 if (!global.mongoConnection) {
@@ -40,22 +42,46 @@ if (!global.mongoConnection) {
  * Reuses connection across serverless function invocations
  */
 export async function getDatabase(): Promise<Db> {
-  if (cached.db) {
+  // If we have a cached db and client is still connected, return it
+  if (cached.db && cached.client) {
+    try {
+      // Test if connection is still alive
+      await cached.client.db("admin").command({ ping: 1 });
+      return cached.db;
+    } catch (error) {
+      // Connection is dead, reset cache
+      console.log("[MongoDB] Connection lost, reconnecting...");
+      cached.client = null;
+      cached.db = null;
+      cached.promise = null;
+    }
+  }
+
+  // If we have a connection promise in progress, wait for it
+  if (cached.promise) {
+    cached.client = await cached.promise;
+    cached.db = cached.client.db(MONGODB_DATABASE);
     return cached.db;
   }
 
-  if (!cached.client) {
-    cached.client = new MongoClient(MONGODB_URI, {
-      maxPoolSize: 10,
-      minPoolSize: 5,
-    });
+  // Create new connection
+  cached.promise = MongoClient.connect(MONGODB_URI, {
+    maxPoolSize: 10,
+    minPoolSize: 5,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  });
 
-    await cached.client.connect();
-    console.log("[MongoDB] Connected to database");
+  try {
+    cached.client = await cached.promise;
+    cached.db = cached.client.db(MONGODB_DATABASE);
+    console.log("[MongoDB] Connected to database:", MONGODB_DATABASE);
+    return cached.db;
+  } catch (error) {
+    cached.promise = null;
+    console.error("[MongoDB] Connection failed:", error);
+    throw error;
   }
-
-  cached.db = cached.client.db(MONGODB_DATABASE);
-  return cached.db;
 }
 
 /**
@@ -63,18 +89,39 @@ export async function getDatabase(): Promise<Db> {
  */
 export async function getClient(): Promise<MongoClient> {
   if (cached.client) {
-    return cached.client;
+    try {
+      // Test if connection is still alive
+      await cached.client.db("admin").command({ ping: 1 });
+      return cached.client;
+    } catch (error) {
+      // Connection is dead, reset cache
+      console.log("[MongoDB] Connection lost, reconnecting...");
+      cached.client = null;
+      cached.db = null;
+      cached.promise = null;
+    }
   }
 
-  cached.client = new MongoClient(MONGODB_URI, {
+  if (cached.promise) {
+    return await cached.promise;
+  }
+
+  cached.promise = MongoClient.connect(MONGODB_URI, {
     maxPoolSize: 10,
     minPoolSize: 5,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
   });
 
-  await cached.client.connect();
-  console.log("[MongoDB] Connected to MongoDB");
-
-  return cached.client;
+  try {
+    cached.client = await cached.promise;
+    console.log("[MongoDB] Connected to MongoDB");
+    return cached.client;
+  } catch (error) {
+    cached.promise = null;
+    console.error("[MongoDB] Connection failed:", error);
+    throw error;
+  }
 }
 
 // Export types
