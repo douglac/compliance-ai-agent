@@ -1,11 +1,9 @@
 import { z } from 'zod'
 
-const UUID = z.string().uuid()
-const ISODate = z
-  .string()
-  .refine((s) => !Number.isNaN(Date.parse(s)), {
-    message: 'must be an ISO date string',
-  })
+const UUID = z.uuid()
+const ISODate = z.string().refine((s) => !Number.isNaN(Date.parse(s)), {
+  message: 'must be an ISO date string',
+})
 
 const Attachment = z.object({
   id: UUID.optional(),

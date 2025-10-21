@@ -63,6 +63,12 @@ importers:
         specifier: ^5
         version: 5.9.3
 
+  packages/schemas:
+    dependencies:
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
+
 packages:
 
   '@alloc/quick-lru@5.2.0':
