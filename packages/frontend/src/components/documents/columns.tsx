@@ -135,7 +135,7 @@ export const columns: ColumnDef<ComplianceDocument>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.getValue('issueDate'))
-      return <div className="text-sm">{date.toLocaleDateString()}</div>
+      return <div className="text-sm">{date.toLocaleDateString('en-US')}</div>
     },
   },
   {
@@ -163,7 +163,7 @@ export const columns: ColumnDef<ComplianceDocument>[] = [
 
       return (
         <div className="text-sm">
-          <div>{expiryDate.toLocaleDateString()}</div>
+          <div>{expiryDate.toLocaleDateString('en-US')}</div>
           {daysUntilExpiry > 0 && daysUntilExpiry <= 30 && (
             <div className="text-xs text-yellow-600 font-medium">
               {daysUntilExpiry} days remaining

@@ -13,6 +13,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { ChevronDown, Filter, X } from 'lucide-react'
+import {
+  parseAsInteger,
+  parseAsString,
+  parseAsStringLiteral,
+  useQueryStates,
+} from 'nuqs'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -44,25 +50,63 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
+// Define parsers for URL state
+const typeValues = [
+  'all',
+  'Accredited Investor',
+  'Investment Suitability',
+  'Risk Disclosure',
+  'Qualified Client',
+] as const
+const statusValues = ['all', 'valid', 'expiring', 'expired', 'pending'] as const
+
+const tableStateParser = {
+  // Pagination
+  page: parseAsInteger.withDefault(0),
+  pageSize: parseAsInteger.withDefault(10),
+
+  // Filters
+  type: parseAsStringLiteral(typeValues).withDefault('all'),
+  status: parseAsStringLiteral(statusValues).withDefault('all'),
+  clientName: parseAsString.withDefault(''),
+}
+
 export function DocumentsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [statusFilter, setStatusFilter] = React.useState<string>('all')
-  const [typeFilter, setTypeFilter] = React.useState<string>('all')
+
+  // Use nuqs for URL state management
+  const [tableState, setTableState] = useQueryStates(tableStateParser, {
+    history: 'push',
+    shallow: false,
+  })
+
+  // Sync URL state with table filters
+  const columnFilters: ColumnFiltersState = React.useMemo(() => {
+    const filters: ColumnFiltersState = []
+
+    if (tableState.clientName) {
+      filters.push({ id: 'clientName', value: tableState.clientName })
+    }
+    if (tableState.type !== 'all') {
+      filters.push({ id: 'type', value: tableState.type })
+    }
+    if (tableState.status !== 'all') {
+      filters.push({ id: 'status', value: tableState.status })
+    }
+
+    return filters
+  }, [tableState.clientName, tableState.type, tableState.status])
 
   const table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -74,36 +118,36 @@ export function DocumentsTable<TData, TValue>({
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex: tableState.page,
+        pageSize: tableState.pageSize,
+      },
     },
+    onPaginationChange: (updater) => {
+      const newPagination =
+        typeof updater === 'function'
+          ? updater({
+              pageIndex: tableState.page,
+              pageSize: tableState.pageSize,
+            })
+          : updater
+
+      setTableState({
+        page: newPagination.pageIndex,
+        pageSize: newPagination.pageSize,
+      })
+    },
+    manualPagination: true,
   })
 
-  // Apply filters
-  React.useEffect(() => {
-    if (statusFilter !== 'all') {
-      table.getColumn('status')?.setFilterValue(statusFilter)
-    } else {
-      table.getColumn('status')?.setFilterValue(undefined)
-    }
-  }, [statusFilter, table])
-
-  React.useEffect(() => {
-    if (typeFilter !== 'all') {
-      table.getColumn('type')?.setFilterValue(typeFilter)
-    } else {
-      table.getColumn('type')?.setFilterValue(undefined)
-    }
-  }, [typeFilter, table])
-
   const clearFilters = () => {
-    setStatusFilter('all')
-    setTypeFilter('all')
-    table.getColumn('clientName')?.setFilterValue('')
+    setTableState(null)
   }
 
   const hasActiveFilters =
-    statusFilter !== 'all' ||
-    typeFilter !== 'all' ||
-    (table.getColumn('clientName')?.getFilterValue() as string)?.length > 0
+    tableState.type !== 'all' ||
+    tableState.status !== 'all' ||
+    tableState.clientName.length > 0
 
   return (
     <div className="space-y-4">
@@ -112,17 +156,20 @@ export function DocumentsTable<TData, TValue>({
         <div className="flex-1">
           <Input
             placeholder="Search by client name..."
-            value={
-              (table.getColumn('clientName')?.getFilterValue() as string) ?? ''
-            }
+            value={tableState.clientName}
             onChange={(event) =>
-              table.getColumn('clientName')?.setFilterValue(event.target.value)
+              setTableState({ clientName: event.target.value })
             }
             className="max-w-sm"
           />
         </div>
 
-        <Select value={typeFilter} onValueChange={setTypeFilter}>
+        <Select
+          value={tableState.type}
+          onValueChange={(value) =>
+            setTableState({ type: value as typeof tableState.type })
+          }
+        >
           <SelectTrigger className="w-[200px]">
             <Filter className="mr-2 h-4 w-4" />
             <SelectValue placeholder="Filter by type" />
@@ -140,7 +187,12 @@ export function DocumentsTable<TData, TValue>({
           </SelectContent>
         </Select>
 
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
+        <Select
+          value={tableState.status}
+          onValueChange={(value) =>
+            setTableState({ status: value as typeof tableState.status })
+          }
+        >
           <SelectTrigger className="w-[180px]">
             <Filter className="mr-2 h-4 w-4" />
             <SelectValue placeholder="Filter by status" />
@@ -248,6 +300,29 @@ export function DocumentsTable<TData, TValue>({
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
+            <p className="text-sm text-gray-600">Rows per page</p>
+            <Select
+              value={tableState.pageSize.toString()}
+              onValueChange={(value) => {
+                setTableState({
+                  pageSize: parseInt(value),
+                  page: 0, // Reset to first page when changing page size
+                })
+              }}
+            >
+              <SelectTrigger className="h-8 w-[70px]">
+                <SelectValue placeholder={tableState.pageSize.toString()} />
+              </SelectTrigger>
+              <SelectContent side="top">
+                {[10, 20, 30, 40, 50].map((pageSize) => (
+                  <SelectItem key={pageSize} value={pageSize.toString()}>
+                    {pageSize}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <Button
             variant="outline"
             size="sm"
